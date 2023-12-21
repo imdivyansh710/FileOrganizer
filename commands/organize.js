@@ -31,9 +31,43 @@ function organize(srcPath){
     console.log(allFiles);
 
     for(let i=0;i<allFiles.length;i++){
-        let ext = path.extname(allFiles[i]);  //return the extension of the file
-        console.log(ext);
+        // let ext = path.extname(allFiles[i]);  //return the extension of the file
+        // console.log(ext);
+        let fullPathOfFile = path.join(srcPath,allFiles[i]);
+        console.log("full path",fullPathOfFile);
+        let isFile = fs.lstatSync(fullPathOfFile).isFile();
+        if(isFile)
+        {
+            let ext = path.extname(allFiles[i]).split('.')[1];
+            let folderName = getFolderName(ext);
+            console.log("folderName", folderName);
+            copyFileTodest(srcPath,fullPathOfFile,folderName);
+        }
     }
+}
+
+function getFolderName(ext)
+{
+    for(let key in types){
+        console.log(key);
+        for(let i=0;i< types[key].length;i++){
+            if(types[key][i]===ext){
+                return key;
+            }
+        }
+    }
+}
+
+function copyFileTodest(srcPath,fullPathOfFile,folderName){
+
+    let destFolderPath = path.join(srcPath,"organized_files",folderName);
+    if(!fs.existsSync(destFolderPath))
+    {
+        fs.mkdirSync(destFolderPath);
+    }
+    let fileName = path.basename(fullPathOfFile);
+    let destFileName = path.join(destFolderPath,fileName);
+    fs.copyFileSync(fullPathOfFile,destFileName)
 }
  let srcPath = "E:\\FileOrganizer\\commands\\downloads";
 organize(srcPath);
