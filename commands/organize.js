@@ -63,7 +63,7 @@ function getFolderName(ext) {
   for (let key in types) {
     // console.log(key);
     for (let i = 0; i < types[key].length; i++) {
-      if (types[key][i] == ext) {
+      if (types[key][i] == ext.toLowerCase()) {
         return key;
       }
     }
@@ -89,10 +89,6 @@ function copyFileToDest(srcPath, fullPathOfFile, folderName) {
   fs.copyFileSync(fullPathOfFile, destFileName);
   //magic
 }
-
-
-// let srcPath="/Users/abhishekgoel/Desktop/Desktop/AbhishekGoel/FJP5/Node/fileOrganizer/downloads"
-// organize(srcPath);
 
 module.exports = {
   organize:organize

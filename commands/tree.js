@@ -36,5 +36,3 @@ module.exports = {
   tree: treeFn,
 };
 
-// let srcPath="/Users/abhishekgoel/Desktop/Desktop/AbhishekGoel/FJP5/Node/"
-// treeFn(srcPath);
